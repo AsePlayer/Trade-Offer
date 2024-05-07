@@ -3,6 +3,7 @@ extends Control
 @onready var tasks = $"../Tasks_Rewards/Tasks"
 @onready var rewards = $"../Tasks_Rewards/Rewards"
 @onready var tasks_rewards = $"../Tasks_Rewards"
+@onready var error_msg = $"../ErrorMsg"
 
 var current_task:String
 var current_reward:String
@@ -31,7 +32,9 @@ func _on_trade_done_button_pressed():
 
 
 func _on_trade_offer_button_pressed():
-	if tasks.item_count == 0 or rewards.item_count == 0: return
+	if tasks.item_count == 0 or rewards.item_count == 0: 
+		error_msg.set_msg("Need at least 1 task and reward to trade!")
+		return
 	video_stream_player.paused = false
 	
 	current_task_id = randi() % tasks.item_count
