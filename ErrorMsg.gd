@@ -7,7 +7,6 @@ var og_pos
 func _ready():
 	text = ""
 	og_pos = position
-	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -15,10 +14,8 @@ func _process(delta):
 	if text != "":
 		if position.y > og_pos.y - 50:
 			position.y = lerp(position.y, position.y - 10 * delta, 2)
-
 	else:
 		position.y = og_pos.y
-	pass
 
 func set_msg(msg:String):
 	position = og_pos
@@ -27,8 +24,6 @@ func set_msg(msg:String):
 	timer.start()
 
 
-
 func _on_timer_timeout():
 	visible = false
 	text = ""
-	pass # Replace with function body.

@@ -10,6 +10,7 @@ var current_reward:String
 
 var current_task_id:int
 var current_reward_id:int
+@onready var item_adder = $"../ItemAdder"
 
 @onready var video_stream_player:VideoStreamPlayer = $VideoStreamPlayer
 @onready var tasks_label = $TasksLabel
@@ -23,8 +24,40 @@ func _process(delta):
 
 
 func _on_trade_done_button_pressed():
+	var task_name:String = tasks.get_item_text(current_task_id)
+	var reward_name:String = rewards.get_item_text(current_reward_id)
+	
+	var completed_msg = ("Did " + task_name + " for " + reward_name)
+	
+	# Get current date and time
+	var current_datetime = Time.get_datetime_dict_from_system()
+	
+	# Access individual components of the date and time
+	var year = str(current_datetime.year)
+	var month = str(current_datetime.month)
+	var day = str(current_datetime.day)
+	var hour = str(current_datetime.hour)
+	var minute = str(current_datetime.minute)
+	if int(minute) < 10:
+		minute = "0" + minute
+	var second = str(current_datetime.second)
+	
+	# Determine am or pm
+	var am_or_pm = "am"
+	if int(hour) >= 12:
+		am_or_pm = "pm"
+		if int(hour) > 12:
+			hour = str(int(hour) - 12)
+	
+	var date_format = month + "/" + day + "/" + year + ", " + hour + ":" + minute + am_or_pm
+	
+	#print("Current Date and Time:")
+	#print(date_format)
+	
+	SaveLoad.update_data("completed_tasks", completed_msg + " at " + date_format)
 	tasks.remove_item(current_task_id)
 	rewards.remove_item(current_reward_id)
+	item_adder.refresh_items()
 	
 	current_task_id = 0
 	current_reward_id = 0

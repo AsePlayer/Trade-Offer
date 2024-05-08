@@ -97,14 +97,14 @@ func _on_delete_item_pressed():
 	var check2 = false
 	
 	if tasks.get_selected_items().size() > 0: 
-		tasks.remove_item(tasks.get_selected_items()[0])
+		for i in range(tasks.get_selected_items().size()):
+			tasks.remove_item(tasks.get_selected_items()[0])
 		check1 = true
 	if rewards.get_selected_items().size() > 0: 
-		rewards.remove_item(rewards.get_selected_items()[0])
+		for i in range(rewards.get_selected_items().size()):
+			rewards.remove_item(rewards.get_selected_items()[0])
 		check2 = true
 	
 	if check1 or check2: pass
 	else: error_msg.set_msg("Select at least 1 item to delete!")
 	refresh_items()
-	
-	pass # Replace with function body.
